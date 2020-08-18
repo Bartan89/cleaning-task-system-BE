@@ -1,6 +1,6 @@
-"use strict";
+"use strict"
 
-const { Model } = require("sequelize");
+const { Model } = require("sequelize")
 module.exports = (sequelize, DataTypes) => {
   class user extends Model {
     /**
@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      user.hasMany(models.artwork)
       // define association here
     }
   }
@@ -16,22 +17,25 @@ module.exports = (sequelize, DataTypes) => {
     {
       name: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: false
       },
       email: {
         type: DataTypes.STRING,
         unique: true,
-        allowNull: false,
+        allowNull: false
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: false
       },
+      isArtist: {
+        type: DataTypes.BOOLEAN
+      }
     },
     {
       sequelize,
-      modelName: "user",
+      modelName: "user"
     }
-  );
-  return user;
-};
+  )
+  return user
+}
