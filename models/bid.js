@@ -14,9 +14,18 @@ module.exports = (sequelize, DataTypes) => {
   }
   bid.init(
     {
-      email: DataTypes.STRING,
-      amount: DataTypes.INTEGER,
-      artworkId: DataTypes.INTEGER
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      amount: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      artworkId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      }
     },
     {
       sequelize,

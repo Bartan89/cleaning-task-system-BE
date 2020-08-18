@@ -15,11 +15,27 @@ module.exports = (sequelize, DataTypes) => {
   }
   artwork.init(
     {
-      title: DataTypes.STRING,
-      imageUrl: DataTypes.STRING,
-      heart: DataTypes.INTEGER,
-      minimumBid: DataTypes.INTEGER,
-      userId: DataTypes.INTEGER
+      title: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      imageUrl: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      heart: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+      },
+      minimumBid: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      }
     },
     {
       sequelize,
