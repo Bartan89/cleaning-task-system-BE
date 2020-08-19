@@ -64,9 +64,6 @@ router.patch("/:id", async (req, res) => {
   res.status(200).send({ message: "ok", artwork })
 })
 
-// ---%^&%^&%^&%^&%^&%^--------------------
-
-//post bids
 router.post("/:id/bids", auth, async (req, res) => {
   try {
     const artworkId = req.params.id
@@ -84,6 +81,10 @@ router.post("/:id/bids", auth, async (req, res) => {
       return res.status(400).send({ message: "There is a higher or equal bid already in the database" })
     }
 
+    if (artwork.minimumBid >= amount) {
+      return res.status(400).send({ message: "Your bid is lower then the minimum bid set by the artist" })
+    }
+
     const bid = await Bid.create({
       email,
       amount,
@@ -95,20 +96,37 @@ router.post("/:id/bids", auth, async (req, res) => {
   } catch (error) {
     console.log(error.message)
   }
-
-  // if (homepage === null) {
-  //   return res.status(404).send({ message: "This homepage does not exist" });
-  // }
-
-  // if (!homepage.userId === req.user.id) {
-  //   return res
-  //     .status(403)
-  //     .send({ message: "You are not authorized to update this homepage" });
-  // }
-
-  // if (!name) {
-  //   return res.status(400).send({ message: "A story must have a name" });
-  // }
 })
+
+router.post("/", auth, async (req, res) => {
+  try {
+    const { title, imageUrl, minimumBid, userId } = req.body
+
+    const artwork = await Artwork.create({
+      title,
+      imageUrl,
+      minimumBid,
+      userId
+    })
+
+    console.log(artwork)
+    return res.status(201).send({ message: "Bid added to database", artwork })
+  } catch (error) {
+    console.log(error.message)
+  }
+})
+// if (homepage === null) {
+//   return res.status(404).send({ message: "This homepage does not exist" });
+// }
+
+// if (!homepage.userId === req.user.id) {
+//   return res
+//     .status(403)
+//     .send({ message: "You are not authorized to update this homepage" });
+// }
+
+// if (!name) {
+//   return res.status(400).send({ message: "A story must have a name" });
+// }
 
 module.exports = router
