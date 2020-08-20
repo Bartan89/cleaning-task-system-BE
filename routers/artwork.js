@@ -110,7 +110,7 @@ router.post("/", auth, async (req, res) => {
     })
 
     console.log(artwork)
-    return res.status(201).send({ message: "Bid added to database", artwork })
+    return res.status(201).send({ message: "Artwork added to database", artwork })
   } catch (error) {
     console.log(error.message)
   }
