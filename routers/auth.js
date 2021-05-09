@@ -44,7 +44,8 @@ router.post("/signup", async (req, res) => {
         email,
         password: bcrypt.hashSync(password, SALT_ROUNDS),
         name,
-        isArtist
+        isArtist,
+        credit : 0
       })
 
       delete newUser.dataValues["password"] // don't send back the password hash
@@ -71,6 +72,33 @@ router.get("/me", authMiddleware, async (req, res) => {
   // don't send back the password hash
   delete req.user.dataValues["password"]
   res.status(200).send({ ...req.user.dataValues })
+})
+
+router.get("/all-users", async (req, res) => {
+  const user  = await User.findAll({
+    attributes: ['name', 'credit', 'id']
+  })
+
+  // if(user) {
+  //   user.array.forEach(element => {
+  //     console.log(element)
+  //   });
+  // }
+
+  const sendThis = user
+
+
+  res.status(200).send(sendThis)
+})
+
+
+router.post("/add-credit", async(req, res) => {
+  
+  const email  = req.body.email;
+  const user = await User.findOne({ where: { email } })
+
+  user.increment('credit', { by: req.body.amount });
+  res.status(200)
 })
 
 module.exports = router

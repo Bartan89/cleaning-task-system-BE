@@ -1,6 +1,6 @@
 {
   "development": {
-    "url": "postgres://fxikpjeb:5HpZLTue84xCxM4DVpJB_gFkX-ytvdYZ@kandula.db.elephantsql.com:5432/fxikpjeb",
+    "url": "postgres://psdqlepg:soIWKomCDSpFs5uZMgR8miLZsc7QmPdL@dumbo.db.elephantsql.com:5432/psdqlepg",
     "dialect": "postgres",
     "operatorsAliases": "0"
   },

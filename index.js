@@ -59,7 +59,7 @@ app.use("/", authRouter)
 // Listen for connections on specified port (default is port 4000)
 
 app.listen(PORT, () => {
-  console.log(`Listening on port: ${PORT}`)
+  console.log(`http://localhost:${PORT}`)
 })
 
 /**
