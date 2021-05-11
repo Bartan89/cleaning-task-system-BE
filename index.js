@@ -13,7 +13,12 @@ app.use(loggerMiddleWare("dev"))
 const bodyParserMiddleWare = express.json()
 app.use(bodyParserMiddleWare)
 
-app.use(corsMiddleWare())
+
+const options = {
+  origin : process.env.ALLOWED_CLIENT
+}
+
+app.use(corsMiddleWare(options))
 
 if (process.env.DELAY) {
   app.use((req, res, next) => {
